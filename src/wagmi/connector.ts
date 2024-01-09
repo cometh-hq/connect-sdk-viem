@@ -1,7 +1,8 @@
 import {
   ComethWallet,
   ConnectAdaptor,
-  SupportedNetworks
+  SupportedNetworks,
+  UIConfig
 } from '@cometh/connect-sdk'
 import { a } from '@wagmi/connectors/dist/base-e6cfa360'
 import { toHex } from 'viem'
@@ -16,6 +17,7 @@ export interface WagmiConfigConnectorParams {
   apiKey: string
   disableEoaFallback?: boolean
   walletAddress?: string
+  uiConfig?: UIConfig
   baseUrl?: string
 }
 
@@ -49,7 +51,8 @@ export class ComethConnectConnector extends Connector<
       chains,
       options
     })
-    const { apiKey, disableEoaFallback, baseUrl, walletAddress } = this.options
+    const { apiKey, disableEoaFallback, baseUrl, walletAddress, uiConfig } =
+      this.options
 
     const chainId = toHex(this.chains[0].id)
 
@@ -62,6 +65,7 @@ export class ComethConnectConnector extends Connector<
           baseUrl
         }),
         apiKey,
+        uiConfig,
         baseUrl
       })
 
